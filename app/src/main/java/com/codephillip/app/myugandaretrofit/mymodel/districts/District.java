@@ -1,5 +1,5 @@
 
-package com.codephillip.app.myugandaretrofit.models.districts;
+package com.codephillip.app.myugandaretrofit.mymodel.districts;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

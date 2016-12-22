@@ -4,12 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.codephillip.app.myugandaretrofit.models.districts.District;
-import com.codephillip.app.myugandaretrofit.models.districts.Districts;
+import com.codephillip.app.myugandaretrofit.mymodel.districts.District;
+import com.codephillip.app.myugandaretrofit.mymodel.districts.Districts;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiClient;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiInterface;
 
-import java.sql.SQLInvalidAuthorizationSpecException;
 import java.util.List;
 
 import retrofit2.Call;
