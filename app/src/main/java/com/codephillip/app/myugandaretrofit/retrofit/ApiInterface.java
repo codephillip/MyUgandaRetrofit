@@ -1,6 +1,7 @@
 package com.codephillip.app.myugandaretrofit.retrofit;
 
 import com.codephillip.app.myugandaretrofit.mymodel.districts.Districts;
+import com.codephillip.app.myugandaretrofit.mymodel.events.Events;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministrys;
 
 import retrofit2.Call;
@@ -17,4 +18,7 @@ public interface ApiInterface {
 
     @GET("/api/v1/ministrys?format=json")
     Call<Ministrys> allMinistrys();
+
+    @GET("/api/v1/events?format=json")
+    Call<Events> allEvents();
 }

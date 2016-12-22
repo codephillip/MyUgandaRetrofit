@@ -29,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        loadDistricts();
-        loadMinistrys();
+        saveDistricts();
+        saveMinistrys();
     }
 
-    private void loadMinistrys() {
+    private void saveMinistrys() {
         Call<Ministrys> call = apiInterface.allMinistrys();
         call.enqueue(new Callback<Ministrys>() {
             @Override
@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
     private void saveMinistry(Ministrys ministrys) {
         List<Ministry> ministryList = ministrys.getMinistrys();
         for (Ministry ministry : ministryList) {
-            Log.d(TAG, "saveDistrict: " + ministry.getId() + ministry.getName() + ministry.getImage());
+            Log.d(TAG, "saveMinistry: " + ministry.getId() + ministry.getName() + ministry.getImage());
         }
     }
 
 
-    private void loadDistricts() {
+    private void saveDistricts() {
         Call<Districts> call = apiInterface.allDistricts();
         call.enqueue(new Callback<Districts>() {
             @Override
