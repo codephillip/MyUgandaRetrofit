@@ -1,7 +1,7 @@
 package com.codephillip.app.myugandaretrofit.retrofit;
 
 import com.codephillip.app.myugandaretrofit.mymodel.districts.Districts;
-import com.codephillip.app.myugandaretrofit.mymodel.ministry.Ministrys;
+import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministrys;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

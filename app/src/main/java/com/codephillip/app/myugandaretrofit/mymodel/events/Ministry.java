@@ -1,5 +1,5 @@
 
-package com.codephillip.app.myugandaretrofit.mymodel.ministry;
+package com.codephillip.app.myugandaretrofit.mymodel.events;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

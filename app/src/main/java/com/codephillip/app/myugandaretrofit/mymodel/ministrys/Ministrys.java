@@ -1,5 +1,5 @@
 
-package com.codephillip.app.myugandaretrofit.mymodel.ministry;
+package com.codephillip.app.myugandaretrofit.mymodel.ministrys;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

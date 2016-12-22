@@ -6,8 +6,8 @@ import android.util.Log;
 
 import com.codephillip.app.myugandaretrofit.mymodel.districts.District;
 import com.codephillip.app.myugandaretrofit.mymodel.districts.Districts;
-import com.codephillip.app.myugandaretrofit.mymodel.ministry.Ministry;
-import com.codephillip.app.myugandaretrofit.mymodel.ministry.Ministrys;
+import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministry;
+import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministrys;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiClient;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiInterface;
 
