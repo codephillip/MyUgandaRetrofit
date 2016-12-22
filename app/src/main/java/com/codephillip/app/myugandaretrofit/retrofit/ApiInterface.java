@@ -1,10 +1,10 @@
 package com.codephillip.app.myugandaretrofit.retrofit;
 
 import com.codephillip.app.myugandaretrofit.mymodel.districts.Districts;
+import com.codephillip.app.myugandaretrofit.mymodel.ministry.Ministrys;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 /**
  * Created by codephillip on 22/12/16.
@@ -15,4 +15,6 @@ public interface ApiInterface {
     @GET("/api/v1/districts?format=json")
     Call<Districts> allDistricts();
 
+    @GET("/api/v1/ministrys?format=json")
+    Call<Ministrys> allMinistrys();
 }

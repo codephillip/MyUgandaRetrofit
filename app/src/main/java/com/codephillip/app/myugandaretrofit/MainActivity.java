@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.codephillip.app.myugandaretrofit.mymodel.districts.District;
 import com.codephillip.app.myugandaretrofit.mymodel.districts.Districts;
+import com.codephillip.app.myugandaretrofit.mymodel.ministry.Ministry;
+import com.codephillip.app.myugandaretrofit.mymodel.ministry.Ministrys;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiClient;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiInterface;
 
@@ -27,18 +29,41 @@ public class MainActivity extends AppCompatActivity {
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        loadTodos();
-//        loadTodos(1);
+        loadDistricts();
+        loadMinistrys();
+    }
+
+    private void loadMinistrys() {
+        Call<Ministrys> call = apiInterface.allMinistrys();
+        call.enqueue(new Callback<Ministrys>() {
+            @Override
+            public void onResponse(Call<Ministrys> call, Response<Ministrys> response) {
+                Ministrys ministrys = response.body();
+                saveMinistry(ministrys);
+            }
+
+            @Override
+            public void onFailure(Call<Ministrys> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void saveMinistry(Ministrys ministrys) {
+        List<Ministry> ministryList = ministrys.getMinistrys();
+        for (Ministry ministry : ministryList) {
+            Log.d(TAG, "saveDistrict: " + ministry.getId() + ministry.getName() + ministry.getImage());
+        }
     }
 
 
-    private void loadTodos() {
+    private void loadDistricts() {
         Call<Districts> call = apiInterface.allDistricts();
         call.enqueue(new Callback<Districts>() {
             @Override
             public void onResponse(Call<Districts> call, Response<Districts> response) {
-                Districts districts = response.body();
-                displayDistrict(districts);
+                Districts ministrys = response.body();
+                saveDistrict(ministrys);
             }
 
             @Override
@@ -49,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void displayDistrict(Districts districts) {
-        if (districts != null) {
-            Log.d(TAG, "displayDistrict: #" + districts);
-            List<District> districtList = districts.getDistricts();
+    private void saveDistrict(Districts ministrys) {
+        if (ministrys != null) {
+            Log.d(TAG, "saveDistrict: #" + ministrys);
+            List<District> ministryList = ministrys.getDistricts();
 
-            for (District district : districtList) {
-                Log.d(TAG, "displayDistrict: " + district.getId() + district.getName() + district.getRegion());
+            for (District ministry : ministryList) {
+                Log.d(TAG, "saveDistrict: " + ministry.getId() + ministry.getName() + ministry.getRegion());
             }
 
         } else {
