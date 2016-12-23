@@ -10,6 +10,7 @@ import com.codephillip.app.myugandaretrofit.mymodel.districts.District;
 import com.codephillip.app.myugandaretrofit.mymodel.districts.Districts;
 import com.codephillip.app.myugandaretrofit.mymodel.events.Event;
 import com.codephillip.app.myugandaretrofit.mymodel.events.Events;
+import com.codephillip.app.myugandaretrofit.mymodel.feedbacks.Feedback;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministry;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministrys;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiClient;
@@ -33,10 +34,29 @@ public class MainActivity extends AppCompatActivity {
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        loadDistricts();
-        loadMinistrys();
-        loadEvents();
-        loadChapters();
+//        loadDistricts();
+//        loadMinistrys();
+//        loadEvents();
+//        loadChapters();
+        sendFeedback();
+    }
+
+    private void sendFeedback() {
+        Feedback feedback = new Feedback("dummy title2", "dummy content, dummy content2");
+        Call<Feedback> call = apiInterface.createFeedback(feedback);
+        call.enqueue(new Callback<Feedback>() {
+            @Override
+            public void onResponse(Call<Feedback> call, Response<Feedback> response) {
+                int statusCode = response.code();
+                Feedback feedback1 = response.body();
+                Log.d(TAG, "onResponse: #" + feedback1.getTitle() + feedback1.getContent() + statusCode);
+            }
+
+            @Override
+            public void onFailure(Call<Feedback> call, Throwable t) {
+
+            }
+        });
     }
 
     private void loadChapters() {
