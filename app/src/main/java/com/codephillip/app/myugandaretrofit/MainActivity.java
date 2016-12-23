@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.codephillip.app.myugandaretrofit.mymodel.districts.District;
 import com.codephillip.app.myugandaretrofit.mymodel.districts.Districts;
+import com.codephillip.app.myugandaretrofit.mymodel.events.Event;
+import com.codephillip.app.myugandaretrofit.mymodel.events.Events;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministry;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministrys;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiClient;
@@ -29,27 +31,51 @@ public class MainActivity extends AppCompatActivity {
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        saveDistricts();
-        saveMinistrys();
+        loadDistricts();
+        loadMinistrys();
+        loadEvents();
     }
 
-    private void saveMinistrys() {
+    private void loadEvents() {
+        Call<Events> call = apiInterface.allEvents();
+        call.enqueue(new Callback<Events>() {
+            @Override
+            public void onResponse(Call<Events> call, Response<Events> response) {
+                Events events = response.body();
+                saveEvents(events);
+            }
+
+            @Override
+            public void onFailure(Call<Events> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.toString());
+            }
+        });
+    }
+
+    private void saveEvents(Events events) {
+        List<Event> eventList = events.getEvents();
+        for (Event event : eventList) {
+            Log.d(TAG, "saveEvent: " + event.getId() + event.getTitle() + event.getLocation() + event.getMinistry().getName());
+        }
+    }
+
+    private void loadMinistrys() {
         Call<Ministrys> call = apiInterface.allMinistrys();
         call.enqueue(new Callback<Ministrys>() {
             @Override
             public void onResponse(Call<Ministrys> call, Response<Ministrys> response) {
                 Ministrys ministrys = response.body();
-                saveMinistry(ministrys);
+                saveMinistrys(ministrys);
             }
 
             @Override
             public void onFailure(Call<Ministrys> call, Throwable t) {
-
+                Log.d(TAG, "onFailure: " + t.toString());
             }
         });
     }
 
-    private void saveMinistry(Ministrys ministrys) {
+    private void saveMinistrys(Ministrys ministrys) {
         List<Ministry> ministryList = ministrys.getMinistrys();
         for (Ministry ministry : ministryList) {
             Log.d(TAG, "saveMinistry: " + ministry.getId() + ministry.getName() + ministry.getImage());
@@ -57,24 +83,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void saveDistricts() {
+    private void loadDistricts() {
         Call<Districts> call = apiInterface.allDistricts();
         call.enqueue(new Callback<Districts>() {
             @Override
             public void onResponse(Call<Districts> call, Response<Districts> response) {
                 Districts ministrys = response.body();
-                saveDistrict(ministrys);
+                saveDistricts(ministrys);
             }
 
             @Override
             public void onFailure(Call<Districts> call, Throwable t) {
-
+                Log.d(TAG, "onFailure: " + t.toString());
             }
         });
     }
 
 
-    private void saveDistrict(Districts ministrys) {
+    private void saveDistricts(Districts ministrys) {
         if (ministrys != null) {
             Log.d(TAG, "saveDistrict: #" + ministrys);
             List<District> ministryList = ministrys.getDistricts();
