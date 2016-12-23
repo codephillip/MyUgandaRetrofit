@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.codephillip.app.myugandaretrofit.mymodel.chapters.Chapter;
+import com.codephillip.app.myugandaretrofit.mymodel.chapters.Chapters;
 import com.codephillip.app.myugandaretrofit.mymodel.districts.District;
 import com.codephillip.app.myugandaretrofit.mymodel.districts.Districts;
 import com.codephillip.app.myugandaretrofit.mymodel.events.Event;
@@ -34,6 +36,32 @@ public class MainActivity extends AppCompatActivity {
         loadDistricts();
         loadMinistrys();
         loadEvents();
+        loadChapters();
+    }
+
+    private void loadChapters() {
+        Call<Chapters> call = apiInterface.allChapters();
+        call.enqueue(new Callback<Chapters>() {
+            @Override
+            public void onResponse(Call<Chapters> call, Response<Chapters> response) {
+                Chapters chapters = response.body();
+                saveChapters(chapters);
+            }
+
+            @Override
+            public void onFailure(Call<Chapters> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.toString());
+            }
+        });
+    }
+
+    private void saveChapters(Chapters chapters) {
+        if (chapters == null)
+            throw new NullPointerException("Chapters not found");
+        List<Chapter> chapterList = chapters.getChapters();
+        for (Chapter chapter : chapterList) {
+            Log.d(TAG, "saveChapter: " + chapter.getId() + chapter.getTitle() + chapter.getImage() + chapter.getMinistry().getName() + chapter.getDistrict().getName());
+        }
     }
 
     private void loadEvents() {
@@ -53,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveEvents(Events events) {
+        if (events == null)
+            throw new NullPointerException("Events not found");
         List<Event> eventList = events.getEvents();
         for (Event event : eventList) {
             Log.d(TAG, "saveEvent: " + event.getId() + event.getTitle() + event.getLocation() + event.getMinistry().getName());
@@ -76,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveMinistrys(Ministrys ministrys) {
+        if (ministrys == null)
+            throw new NullPointerException("Ministrys not found");
         List<Ministry> ministryList = ministrys.getMinistrys();
         for (Ministry ministry : ministryList) {
             Log.d(TAG, "saveMinistry: " + ministry.getId() + ministry.getName() + ministry.getImage());
@@ -100,17 +132,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void saveDistricts(Districts ministrys) {
-        if (ministrys != null) {
-            Log.d(TAG, "saveDistrict: #" + ministrys);
-            List<District> ministryList = ministrys.getDistricts();
+    private void saveDistricts(Districts districts) {
+        if (districts == null)
+            throw new NullPointerException("Districts not found");
+        Log.d(TAG, "saveDistrict: #" + districts);
+        List<District> districtList = districts.getDistricts();
 
-            for (District ministry : ministryList) {
-                Log.d(TAG, "saveDistrict: " + ministry.getId() + ministry.getName() + ministry.getRegion());
-            }
-
-        } else {
-            throw new NullPointerException("District not found");
+        for (District district : districtList) {
+            Log.d(TAG, "saveDistrict: " + district.getId() + district.getName() + district.getRegion());
         }
+
     }
 }

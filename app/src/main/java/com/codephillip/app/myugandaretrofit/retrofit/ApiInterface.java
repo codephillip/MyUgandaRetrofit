@@ -1,5 +1,6 @@
 package com.codephillip.app.myugandaretrofit.retrofit;
 
+import com.codephillip.app.myugandaretrofit.mymodel.chapters.Chapters;
 import com.codephillip.app.myugandaretrofit.mymodel.districts.Districts;
 import com.codephillip.app.myugandaretrofit.mymodel.events.Events;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministrys;
@@ -21,4 +22,7 @@ public interface ApiInterface {
 
     @GET("/api/v1/events?format=json")
     Call<Events> allEvents();
+
+    @GET("/api/v1/chapters?format=json")
+    Call<Chapters> allChapters();
 }
