@@ -15,6 +15,7 @@ import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministry;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministrys;
 import com.codephillip.app.myugandaretrofit.mymodel.weatherdistricts.ListWeather;
 import com.codephillip.app.myugandaretrofit.mymodel.weatherdistricts.Weatherdistricts;
+import com.codephillip.app.myugandaretrofit.mymodel.weathertoday.ListWeatherToday;
 import com.codephillip.app.myugandaretrofit.mymodel.weathertoday.WeatherToday;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiClient;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiInterface;
@@ -38,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
 //        apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         apiInterfaceWeather = ApiClient.getClient(ApiClient.WEATHER_BASE_URL).create(ApiInterface.class);
 
-//        loadWeatherToday();
-        loadWeatherDistricts();
+        loadWeatherToday();
+//        loadWeatherDistricts();
 //        loadDistricts();
 //        loadMinistrys();
 //        loadEvents();
@@ -67,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private void saveWeatherToday(WeatherToday wd) {
         if (wd == null)
             throw new NullPointerException("Weathertoday not found");
-        List<com.codephillip.app.myugandaretrofit.mymodel.weathertoday.List> listWeather = wd.getList();
-        for (com.codephillip.app.myugandaretrofit.mymodel.weathertoday.List weather : listWeather) {
+        List<ListWeatherToday> listWeatherToday = wd.getListWeatherToday();
+        for (ListWeatherToday weather : listWeatherToday) {
             Log.d(TAG, "saveWeathertoday: " + weather.getDtTxt() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather().get(0).getMain() + weather.getWeather().get(0).getDescription());
         }
     }

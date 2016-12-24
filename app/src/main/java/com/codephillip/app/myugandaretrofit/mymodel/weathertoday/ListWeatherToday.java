@@ -4,7 +4,7 @@ package com.codephillip.app.myugandaretrofit.mymodel.weathertoday;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class List {
+public class ListWeatherToday {
 
     @SerializedName("dt")
     @Expose
