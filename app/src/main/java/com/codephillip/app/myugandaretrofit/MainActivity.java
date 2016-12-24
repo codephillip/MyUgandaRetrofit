@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
 //        apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         apiInterfaceWeather = ApiClient.getClient(ApiClient.WEATHER_BASE_URL).create(ApiInterface.class);
 
-        loadWeatherToday();
-//        loadWeatherDistricts();
+//        loadWeatherToday();
+        loadWeatherDistricts();
 //        loadDistricts();
 //        loadMinistrys();
 //        loadEvents();
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadWeatherDistricts() {
-        Call<Weatherdistricts> call = apiInterfaceWeather.allWeatherDistricts("1f846e7a0e00cf8c2f96dd5e768580fb");
+        Call<Weatherdistricts> call = apiInterfaceWeather.allWeatherDistricts("233114,229278,229024", "1f846e7a0e00cf8c2f96dd5e768580fb");
         call.enqueue(new Callback<Weatherdistricts>() {
             @Override
             public void onResponse(Call<Weatherdistricts> call, Response<Weatherdistricts> response) {
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             throw new NullPointerException("Weatherdistricts not found");
         java.util.List<ListWeather> listWeather = wd.getListWeather();
         for (ListWeather weather : listWeather) {
-            Log.d(TAG, "saveWeatherdistricts: " + weather.getName() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather());
+            Log.d(TAG, "saveWeatherdistricts: " + weather.getName() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather().get(0).getMain());
         }
     }
 
