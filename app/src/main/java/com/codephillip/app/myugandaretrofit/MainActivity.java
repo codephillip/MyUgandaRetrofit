@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
 //        apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         apiInterfaceWeather = ApiClient.getClient(ApiClient.WEATHER_BASE_URL).create(ApiInterface.class);
 
-        loadWeatherToday();
-//        loadWeatherDistricts();
+//        loadWeatherToday();
+        loadWeatherDistricts();
 //        loadDistricts();
 //        loadMinistrys();
 //        loadEvents();
