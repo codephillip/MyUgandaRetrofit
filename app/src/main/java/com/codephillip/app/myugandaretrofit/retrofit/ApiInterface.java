@@ -6,6 +6,7 @@ import com.codephillip.app.myugandaretrofit.mymodel.events.Events;
 import com.codephillip.app.myugandaretrofit.mymodel.feedbacks.Feedback;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministrys;
 import com.codephillip.app.myugandaretrofit.mymodel.weatherdistricts.Weatherdistricts;
+import com.codephillip.app.myugandaretrofit.mymodel.weathertoday.WeatherToday;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -34,10 +35,12 @@ public interface ApiInterface {
     //todo replace with weatherurl from server
     //http://api.openweathermap.org === appid=1f846e7a0e00cf8c2f96dd5e768580fb
     //233114,229278,229362,229380,229746,233508,229024,230166,226110,226234,  === @Path("id") String id,
-    @GET("/data/2.5/group?id=233114,229278,229362,229380,229746,233508,229024,230166,226110,226234&units=metric&")
+    @GET("/data/2.5/group?id=233114,229278,229362,229380,229746,233508,229024,230166,226110,226234&units=metric")
     Call<Weatherdistricts> allWeatherDistricts(@Query("appid") String appid);
 
     @POST("/api/v1/feedbacks/post")
     Call<Feedback> createFeedback(@Body Feedback feedback);
 
+    @GET("/data/2.5/forecast?id=233114&mode=json&units=metric&cnt=2")
+    Call<WeatherToday> allWeatherToday(@Query("appid") String appid);
 }

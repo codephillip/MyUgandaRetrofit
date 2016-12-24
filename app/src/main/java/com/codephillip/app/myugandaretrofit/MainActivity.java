@@ -15,6 +15,7 @@ import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministry;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministrys;
 import com.codephillip.app.myugandaretrofit.mymodel.weatherdistricts.ListWeather;
 import com.codephillip.app.myugandaretrofit.mymodel.weatherdistricts.Weatherdistricts;
+import com.codephillip.app.myugandaretrofit.mymodel.weathertoday.WeatherToday;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiClient;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiInterface;
 
@@ -37,12 +38,39 @@ public class MainActivity extends AppCompatActivity {
 //        apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
         apiInterfaceWeather = ApiClient.getClient(ApiClient.WEATHER_BASE_URL).create(ApiInterface.class);
 
-        loadWeatherDistricts();
+        loadWeatherToday();
+//        loadWeatherDistricts();
 //        loadDistricts();
 //        loadMinistrys();
 //        loadEvents();
 //        loadChapters();
 //        sendFeedback();
+    }
+
+    private void loadWeatherToday() {
+        Call<WeatherToday> call = apiInterfaceWeather.allWeatherToday("1f846e7a0e00cf8c2f96dd5e768580fb");
+        call.enqueue(new Callback<WeatherToday>() {
+            @Override
+            public void onResponse(Call<WeatherToday> call, Response<WeatherToday> response) {
+                WeatherToday wd = response.body();
+                saveWeatherToday(wd);
+            }
+
+            @Override
+            public void onFailure(Call<WeatherToday> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.toString());
+                throw new UnsupportedOperationException("Failed to start");
+            }
+        });
+    }
+
+    private void saveWeatherToday(WeatherToday wd) {
+        if (wd == null)
+            throw new NullPointerException("Weathertoday not found");
+        List<com.codephillip.app.myugandaretrofit.mymodel.weathertoday.List> listWeather = wd.getList();
+        for (com.codephillip.app.myugandaretrofit.mymodel.weathertoday.List weather : listWeather) {
+            Log.d(TAG, "saveWeathertoday: "+ weather.getDtTxt() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather().get(0).getMain() + weather.getWeather().get(0).getDescription());
+        }
     }
 
     private void loadWeatherDistricts() {
