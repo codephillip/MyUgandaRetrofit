@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadWeatherToday() {
-        Call<WeatherToday> call = apiInterfaceWeather.allWeatherToday("1f846e7a0e00cf8c2f96dd5e768580fb");
+        Call<WeatherToday> call = apiInterfaceWeather.allWeatherToday(233114, "1f846e7a0e00cf8c2f96dd5e768580fb");
         call.enqueue(new Callback<WeatherToday>() {
             @Override
             public void onResponse(Call<WeatherToday> call, Response<WeatherToday> response) {
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             throw new NullPointerException("Weathertoday not found");
         List<com.codephillip.app.myugandaretrofit.mymodel.weathertoday.List> listWeather = wd.getList();
         for (com.codephillip.app.myugandaretrofit.mymodel.weathertoday.List weather : listWeather) {
-            Log.d(TAG, "saveWeathertoday: "+ weather.getDtTxt() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather().get(0).getMain() + weather.getWeather().get(0).getDescription());
+            Log.d(TAG, "saveWeathertoday: " + weather.getDtTxt() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather().get(0).getMain() + weather.getWeather().get(0).getDescription());
         }
     }
 
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             throw new NullPointerException("Weatherdistricts not found");
         java.util.List<ListWeather> listWeather = wd.getListWeather();
         for (ListWeather weather : listWeather) {
-            Log.d(TAG, "saveWeatherdistricts: "+ weather.getName() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather());
+            Log.d(TAG, "saveWeatherdistricts: " + weather.getName() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather());
         }
     }
 

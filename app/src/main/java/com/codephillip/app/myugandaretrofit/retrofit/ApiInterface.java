@@ -41,6 +41,9 @@ public interface ApiInterface {
     @POST("/api/v1/feedbacks/post")
     Call<Feedback> createFeedback(@Body Feedback feedback);
 
-    @GET("/data/2.5/forecast?id=233114&mode=json&units=metric&cnt=2")
-    Call<WeatherToday> allWeatherToday(@Query("appid") String appid);
+//    @GET("/data/2.5/forecast?id={id}&mode=json&units=metric&cnt=2")
+//    Call<WeatherToday> allWeatherToday(@Query("id") String id, @Query("appid") String appid);
+
+    @GET("/data/2.5/forecast?&mode=json&units=metric&cnt=2")
+    Call<WeatherToday> allWeatherToday(@Query("id") int value, @Query("appid") String appid);
 }

@@ -9,7 +9,7 @@ public class Weatherdistricts {
     @SerializedName("cnt")
     @Expose
     private Integer cnt;
-    @SerializedName("List")
+    @SerializedName("list")
     @Expose
     private java.util.List<ListWeather> listWeather = null;
 
