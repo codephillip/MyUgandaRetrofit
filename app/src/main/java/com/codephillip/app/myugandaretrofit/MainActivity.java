@@ -1,7 +1,7 @@
 package com.codephillip.app.myugandaretrofit;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.codephillip.app.myugandaretrofit.mymodel.chapters.Chapter;
@@ -13,6 +13,8 @@ import com.codephillip.app.myugandaretrofit.mymodel.events.Events;
 import com.codephillip.app.myugandaretrofit.mymodel.feedbacks.Feedback;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministry;
 import com.codephillip.app.myugandaretrofit.mymodel.ministrys.Ministrys;
+import com.codephillip.app.myugandaretrofit.mymodel.weatherdistricts.ListWeather;
+import com.codephillip.app.myugandaretrofit.mymodel.weatherdistricts.Weatherdistricts;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiClient;
 import com.codephillip.app.myugandaretrofit.retrofit.ApiInterface;
 
@@ -25,20 +27,48 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private ApiInterface apiInterface;
+    private ApiInterface apiInterface, apiInterfaceWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        apiInterface = ApiClient.getClient(ApiClient.BASE_URL).create(ApiInterface.class);
+        apiInterfaceWeather = ApiClient.getClient(ApiClient.WEATHER_BASE_URL).create(ApiInterface.class);
 
+        loadWeatherDistricts();
 //        loadDistricts();
 //        loadMinistrys();
 //        loadEvents();
 //        loadChapters();
-        sendFeedback();
+//        sendFeedback();
+    }
+
+    private void loadWeatherDistricts() {
+        Call<Weatherdistricts> call = apiInterfaceWeather.allWeatherDistricts("1f846e7a0e00cf8c2f96dd5e768580fb");
+        call.enqueue(new Callback<Weatherdistricts>() {
+            @Override
+            public void onResponse(Call<Weatherdistricts> call, Response<Weatherdistricts> response) {
+                Weatherdistricts wd = response.body();
+                saveWeatherdistricts(wd);
+            }
+
+            @Override
+            public void onFailure(Call<Weatherdistricts> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.toString());
+                throw new UnsupportedOperationException("Failed to start");
+            }
+        });
+    }
+
+    private void saveWeatherdistricts(Weatherdistricts wd) {
+        if (wd == null)
+            throw new NullPointerException("Weatherdistricts not found");
+        java.util.List<ListWeather> listWeather = wd.getListWeather();
+        for (ListWeather weather : listWeather) {
+            Log.d(TAG, "saveWeatherdistricts: "+ weather.getName() + weather.getMain().getTempMin() + weather.getMain().getTempMax() + weather.getWeather());
+        }
     }
 
     private void sendFeedback() {
